@@ -24,16 +24,24 @@ font = pygame.font.SysFont("comicsansms", 35)
 
 # Block size
 BLOCK = 20
-SPEED = 5
+SPEED = 10   # a bit faster
 
 
 def draw_snake(snake_list):
     for x in snake_list:
         pygame.draw.rect(win, GREEN, [x[0], x[1], BLOCK, BLOCK])
 
+
+# NEW: Score display
+def show_score(score):
+    value = font.render("Score: " + str(score), True, BLUE)
+    win.blit(value, [10, 10])
+
+
 def message(msg, color):
     text = font.render(msg, True, color)
     win.blit(text, [WIDTH / 6, HEIGHT / 3])
+
 
 def gameLoop():
     game_over = False
@@ -106,6 +114,10 @@ def gameLoop():
                 game_close = True
 
         draw_snake(snake)
+
+        # NEW: Show score
+        show_score(length - 1)
+
         pygame.display.update()
 
         # Food collision
@@ -119,4 +131,6 @@ def gameLoop():
     pygame.quit()
     quit()
 
+
 gameLoop()
+
